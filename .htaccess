@@ -1,0 +1,112 @@
+AddDefaultCharset utf-8
+
+SetOutputFilter DEFLATE
+
+# Don't compress images
+SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|tiff?|psd|pdf)$ no-gzip dont-vary
+
+# Make sure proxies don't deliver the wrong content
+Header append Vary User-Agent env=!dont-vary
+
+# HTTPS :)
+Header always set Strict-Transport-Security "max-age=63072000; includeSubdomains; preload" env=HTTPS
+
+<IfModule mod_expires.c>
+ExpiresActive on
+ExpiresDefault "access plus 1 hour"
+ExpiresByType application/javascript "access plus 1 year"
+ExpiresByType image/jpg "access plus 1 year"
+ExpiresByType image/jpeg "access plus 1 year"
+ExpiresByType image/gif "access plus 1 year"
+ExpiresByType image/png "access plus 1 year"
+ExpiresByType text/css "access plus 1 year"
+</IfModule>
+
+Header set Cache-Control "public"
+
+Options -Indexes
+
+RewriteEngine on
+RewriteBase "/"
+
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://campfiretails.org%{REQUEST_URI} [R=permanent,L]
+
+RewriteCond %{HTTP_HOST} !^campfiretails\.org$ [NC]
+RewriteRule ^ https://campfiretails.org%{REQUEST_URI} [R=permanent,L]
+
+RewriteRule "^2011/about(/index\.html|/?)$" "/about/" [R=permanent,L]
+RewriteRule "^2011/files/map\.kmz$" "/files/2011/map.kmz" [R=permanent,L]
+RewriteRule "^2011/contact(/index\.html|/?)$" "/contact/" [R=permanent,L]
+RewriteRule "^2011/happenings(/index\.html|/?)$" "https://forum.campfiretails.org/c/happenings" [R=permanent,L]
+RewriteRule "^2011(/index\.html|/?)$" "/" [R=permanent,L]
+RewriteRule "^2011/location(/index\.html|/?)$" "/about/" [R=permanent,L]
+RewriteRule "^2011/policies/code-of-conduct(/index\.html|/?)$" "/policies/code-of-conduct/" [R=permanent,L]
+RewriteRule "^2011/policies/happenings(/index\.html|/?)$" "https://forum.campfiretails.org/c/happenings" [R=permanent,L]
+RewriteRule "^2011/policies(/index\.html|/?)$" "/" [R=permanent,L]
+RewriteRule "^2011/policies/liability-waiver(/index\.html|/?)$" "/policies/liability-waiver/" [R=permanent,L]
+RewriteRule "^2011/policies/policies/code-of-conduct(/index\.html|/?)$" "/policies/code-of-conduct/" [R=permanent,L]
+RewriteRule "^2011/policies/policies/frs-radios(/index\.html|/?)$" - [G,L]
+RewriteRule "^2011/policies/policies/happenings(/index\.html|/?)$" "https://forum.campfiretails.org/c/happenings" [R=permanent,L]
+RewriteRule "^2011/policies/policies(/index\.html|/?)$" "/" [R=permanent,L]
+RewriteRule "^2011/policies/policies/liability-waiver(/index\.html|/?)$" "/policies/liability-waiver/" [R=permanent,L]
+RewriteRule "^2011/policies/policies/registration(/index\.html|/?)$" "/policies/registration/" [R=permanent,L]
+RewriteRule "^2011/policies/registration(/index\.html|/?)$" "/policies/registration/" [R=permanent,L]
+RewriteRule "^2011/registration(/index\.html|/?)$" "/registration/" [R=permanent,L]
+RewriteRule "^2011/volunteer(/index\.html|/?)$" "https://forum.campfiretails.org/c/helping-out" [R=permanent,L]
+RewriteRule "^2011/what-to-bring(/index\.html|/?)$" "/about/" [R=permanent,L]
+
+RewriteRule "^2012/about(/index\.html|/?)$" "/about/" [R=permanent,L]
+RewriteRule "^2012/contact(/index\.html|/?)$" "/contact/" [R=permanent,L]
+RewriteRule "^2012(/index\.html|/?)$" "/" [R=permanent,L]
+RewriteRule "^2012/location(/index\.html|/?)$" "/about/" [R=permanent,L]
+RewriteRule "^2012/policies/code-of-conduct(/index\.html|/?)$" "/policies/code-of-conduct/" [R=permanent,L]
+RewriteRule "^2012/policies(/index\.html|/?)$" "/" [R=permanent,L]
+RewriteRule "^2012/policies/liability-waiver(/index\.html|/?)$" "/policies/liability-waiver/" [R=permanent,L]
+RewriteRule "^2012/policies/privacy(/index\.html|/?)$" "/policies/privacy/" [R=permanent,L]
+RewriteRule "^2012/policies/registration(/index\.html|/?)$" "/policies/registration/" [R=permanent,L]
+RewriteRule "^2012/registration(/index\.html|/?)$" "/registration/" [R=permanent,L]
+RewriteRule "^2012/share/grayscale-flyer\.pdf$" "/files/2012/grayscale-flyer.pdf" [R=permanent,L]
+
+RewriteRule "^2013/assets/files/4x3 Badge Template - Crop Preview\.tif$" "/files/2013/4x3 Badge Template - Crop Preview.tif" [R=permanent,L]
+RewriteRule "^2013/assets/files/4x3 Badge Template\.psd$" "/files/2013/4x3 Badge Template.psd" [R=permanent,L]
+RewriteRule "^2013/assets/files/4x3 Badge Template\.tif$" "/files/2013/4x3 Badge Template.tif" [R=permanent,L]
+RewriteRule "^2013(/index\.html|/?)$" "/" [R=permanent,L]
+RewriteRule "^2013/policies/code-of-conduct\.html$" "/policies/code-of-conduct/" [R=permanent,L]
+RewriteRule "^2013/policies(/index\.html|/?)$" "/" [R=permanent,L]
+RewriteRule "^2013/policies/liability-waiver\.html$" "/policies/liability-waiver/" [R=permanent,L]
+RewriteRule "^2013/policies/privacy\.html$" "/policies/privacy/" [R=permanent,L]
+RewriteRule "^2013/policies/registration\.html$" "/policies/registration/" [R=permanent,L]
+
+RewriteRule "^2014/contact(/index\.html|/?)$" "/contact/" [R=permanent,L]
+RewriteRule "^2014(/index\.html|/?)$" "/" [R=permanent,L]
+RewriteRule "^2014/policies/code-of-conduct(/index\.html|/?)$" "/policies/code-of-conduct/" [R=permanent,L]
+RewriteRule "^2014/policies(/index\.html|/?)$" "/" [R=permanent,L]
+RewriteRule "^2014/policies/liability-waiver(/index\.html|/?)$" "/policies/liability-waiver/" [R=permanent,L]
+RewriteRule "^2014/policies/privacy(/index\.html|/?)$" "/policies/privacy/" [R,L]
+RewriteRule "^2014/policies/registration(/index\.html|/?)$" "/policies/registration/" [R=permanent,L]
+RewriteRule "^2014/registration(/index\.html|/?)$" "/registration/" [R=permanent,L]
+
+RewriteRule "^2015/about(/index\.html|/?)$" "/about/" [R=permanent,L]
+RewriteRule "^2015/contact(/index\.html|/?)$" "/contact/" [R=permanent,L]
+RewriteRule "^2015/forum(/index\.html|/?)$" "https://forum.campfiretails.org/" [R=permanent,L]
+RewriteRule "^2015/feed\.xml$" "/feed.xml" [R=permanent,L]
+RewriteRule "^2015(/index\.html|/?)$" "/" [R=permanent,L]
+RewriteRule "^2015/policies/code-of-conduct(/index\.html|/?)$" "/policies/code-of-conduct/" [R=permanent,L]
+RewriteRule "^2015/policies/liability-waiver(/index\.html|/?)$" "/policies/liability-waiver/" [R=permanent,L]
+RewriteRule "^2015/policies/privacy(/index\.html|/?)$" "/policies/privacy/" [R=permanent,L]
+RewriteRule "^2015/policies/registration(/index\.html|/?)$" "/policies/registration/" [R=permanent,L]
+RewriteRule "^2015/registration(/index\.html|/?)$" "/registration/" [R=permanent,L]
+RewriteRule "^2015/update/2015/03/10/a-correction(/index\.html|/?)$" "/update/2015/03/10/a-correction/" [R=permanent,L]
+RewriteRule "^2015/update/2015/05/13/registration-delays(/index\.html|/?)$" "/update/2015/05/13/registration-delays/" [R=permanent,L]
+RewriteRule "^2015/update/2015/06/21/registration-opening-soon(/index\.html|/?)$" "/update/2015/06/21/registration-opening-soon/" [R=permanent,L]
+RewriteRule "^2015/update/2015/06/27/registration-now-open(/index\.html|/?)$" "/update/2015/06/27/registration-now-open/" [R=permanent,L]
+RewriteRule "^2015/update/2015/07/13/extended-registration-change(/index\.html|/?)$" "/update/2015/07/13/extended-registration-change/" [R=permanent,L]
+RewriteRule "^2015/update/2015/07/25/extended-registration-ends-soon(/index\.html|/?)$" "/update/2015/07/25/extended-registration-ends-soon/" [R=permanent,L]
+
+RewriteRule "^feed.xml$" "https://forum.campfiretails.org/c/announcements.rss" [R=temporary,L]
+
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
